@@ -34,6 +34,6 @@ This project is licensed under the GPL 3.0 license. Please see the `LICENSE` fil
 
 ## Contact
 Please contact us if you have any questions, suggestions, or feedback.
-- Email: acotriangulator@gmail.com
+- Email: echo3097s@gmail.com
 
 "AcoTriangulator - Bringing precision to sound localisation!"
