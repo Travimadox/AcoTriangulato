@@ -65,7 +65,7 @@ for iter = 1:num_iterations
     signal3 = awgn(signal3, SNR);
     signal4 = awgn(signal4, SNR);
     
-    % 7. Room Impulse Response applied to signals (placeholder for the example)
+    % 7. Room Impulse Response applied to signals (placeholder for future impementation)
     % Note: You should define or load a room impulse response (RIR) for this to work
     % signal1 = conv(signal1, RIR, 'same');
     % signal2 = conv(signal2, RIR, 'same');
@@ -150,7 +150,7 @@ precision = std_error;  % Precision in mm
 fprintf('Mean Accuracy: %.9f mm\n', mean_accuracy);
 fprintf('Precision: %.9f mm\n', precision);
 
-% Optionally, you can plot these as text in your figure to have all information in one place
+
 subplot(1,2,1); % Go back to the first subplot
 text(max(errors)*0.5, 1, sprintf('Mean Accuracy: %.9f mm', mean_accuracy), 'FontSize', 12);
 text(max(errors)*0.5, 2, sprintf('Precision: %.9f mm', precision), 'FontSize', 12);
