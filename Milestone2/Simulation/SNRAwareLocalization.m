@@ -34,7 +34,7 @@ estimated_positions = zeros(num_iterations, 2);
 source_positions = zeros(num_iterations, 2);
 
 % Setting up SNR Values:
-SNRs = -10:5:30; % Example SNR values from -10 dB to 30 dB in steps of 5 dB
+SNRs = -10:5:60; % Example SNR values from -10 dB to 60 dB in steps of 5 dB
 
 % Prepare Storage for Results:
 average_errors = zeros(1, length(SNRs));
