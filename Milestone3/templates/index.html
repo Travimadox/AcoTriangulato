@@ -7,13 +7,22 @@
 </head>
 
 <body>
-    
 
-    <div class="centered-div">
-        <div class="header">Acoustic Location Grid</div>
-            <img src="data:image/png;base64,{{ plot_url }}" alt="Mathematical Axis Plot">
-        <!-- Content of the centered div -->
+    <div class = "Control-panel">
+        <div class = "Title"> Control panel </div>
+        <button id ="Reload" class = "button-1" = > Reload </button>
+        <br>
+        <button id ="Start" class = "button-3"> Start </button>
+        <br>
+        <button id ="Pause" class = "button-32"> Pause </button>
     </div>
+       
+    <div class="plot-container">
+        <img src="data:image/png;base64,{{ plot_url }}" alt="Mathematical Axis Plot">
+    </div>
+
 </body>
 
 </html>
+
+

@@ -29,6 +29,10 @@ def plot():
     middle_y = 4  # Middle y-coordinate
     ax.plot(middle_x, middle_y, 'x', markersize=10)
     
+    ax.set_title("Acoustic Location Grid")
+    ax.set_xlabel('X-Axis')
+    ax.set_ylabel('Y-Axis')
+    
     # Save the plot to a BytesIO object
     img = BytesIO()
     plt.savefig(img, format='png')
