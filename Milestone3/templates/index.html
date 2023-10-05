@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Flask Web App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    
+
+    <div class="centered-div">
+        <div class="header">Acoustic Location Grid</div>
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Mathematical Axis Plot">
+        <!-- Content of the centered div -->
+    </div>
+</body>
+
+</html>
