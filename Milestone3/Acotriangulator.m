@@ -1,4 +1,4 @@
-% Define the Environment
+%% Define the Environment
 a_width = 800;  % Width of the A1 grid in mm
 a_height = 500;  % Height of the A1 grid in mm
 M1 = [0, 0];
@@ -8,10 +8,9 @@ M4 = [a_width, a_height];
 c = 343; % Speed of sound in m/s
 Fs = 48000; % Sampling frequency in Hz
 
-% Define the source position 
-%source_position = [420, 280];
 
-% Define the paths to the audio files
+
+%% Define the paths to the audio files
 audio_file1 = fullfile(audio_dir, 'RecordingPi1.wav');
 audio_file2 = fullfile(audio_dir, 'RecordingPi2.wav');
 
@@ -20,13 +19,16 @@ audio_file2 = fullfile(audio_dir, 'RecordingPi2.wav');
 [audio2, Fs] = audioread(audio_file2);
 
 
+
+
+
 % Extract the channels
 signal1 = audio1(:, 1);  % Left channel of first Pi,M1
 signal3 = audio1(:, 2);  % Right channel of first Pi,M3
 signal2 = audio2(:, 1);  % Left channel of second Pi,M2
 signal4 = audio2(:, 2);  % Right channel of second Pi,M4
 
-% Noise Reduction and Signal Preprocessing
+%% Noise Reduction and Signal Preprocessing
 % Define the frequency band of interest
 lowFreq = 1450;  % Lower bound of frequency band in Hz
 highFreq = 1550; % Upper bound of frequency band in Hz
@@ -101,20 +103,10 @@ end
 % Error Calculation
 %error_distance = sqrt((estimated_position(1) - source_position(1))^2 + (estimated_position(2) - source_position(2))^2);
 
-% Visualization of Estimated Position
-figure;
-%plot(source_position(1), source_position(2), 'bo', 'MarkerSize', 10);
-%hold on;
-plot(estimated_position(1), estimated_position(2), 'rx', 'MarkerSize', 10);
-%viscircles(source_position, error_distance, 'LineStyle', '--', 'EdgeColor', 'k');  % Error circle
-title('Estimated Source Position');
-xlabel('x (mm)');
-ylabel('y (mm)');
-axis([0 a_width 0 a_height]);
+% After calculating the estimated_position
 
-grid on;
+% Full path to the CSV file
+filePath = 'C:\Users\User\OneDrive - University of Cape Town\Desktop\EEE3097S\AcoTriangulator\Milestone3\estimated_position.csv';
 
-% Displaying the results
-fprintf('Estimated Position: [%.9f mm, %.9f mm]\n', estimated_position(1), estimated_position(2));
-%fprintf('Error Distance: %.9f mm\n', error_distance);
+writematrix(estimated_position,filePath);
 
