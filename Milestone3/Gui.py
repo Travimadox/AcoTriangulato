@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 import numpy as np
+import os
 
 app = Flask(__name__)
 
@@ -46,6 +47,11 @@ def plot():
     
     # Render the template with the plot image
     return render_template('index.html', plot_url=plot_url)
+
+@app.route('/start')
+def start():
+    os.system("python FullAcotriangulator.py Audio")
+    plot()
 
 if __name__ == '__main__':
     app.run(debug=True)
