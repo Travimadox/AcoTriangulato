@@ -8,13 +8,13 @@ import matlab.engine
 
 # Define SSH record command for each Raspberry Pi
 def pi1():
-    os.system("ssh raspberrypi1@192.168.137.39 python3 wait_and_record.py")
+    #os.system("ssh raspberrypi1@192.168.137.39 python3 wait_and_record.py")
 
     os.system("ssh raspberrypi1@192.168.137.39 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 10 -t wav -V stereo -v RecordingPi1.wav")
    
 
 def pi2():
-    os.system("ssh raspberrypi2@192.168.137.190 python3 wait_and_record.py")
+    #os.system("ssh raspberrypi2@192.168.137.190 python3 wait_and_record.py")
 
     os.system("ssh raspberrypi2@192.168.137.190 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 10 -t wav -V stereo -v RecordingPi2.wav")
    
@@ -27,7 +27,7 @@ def transfer_files(host, user, file_path, dest_dir):
     sftp.get(file_path, f'{dest_dir}/{file_path.split("/")[-1]}')
     sftp.close()
     client.close()
-
+    
 def matlab_processing(audio_dir):
     eng = matlab.engine.start_matlab()
     script_path = os.path.join(os.getcwd(), 'Acotriangulator.m')  # Get the path to the MATLAB script

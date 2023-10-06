@@ -8,18 +8,12 @@ M4 = [a_width, a_height];
 c = 343000; % Speed of sound in mm/s
 Fs = 48000; % Sampling frequency in Hz
 
+% Define the source position 
+source_position = [650, 150];
 
-
-%% Define the paths to the audio files
-audio_file1 = fullfile(audio_dir, 'RecordingPi1.wav');
-audio_file2 = fullfile(audio_dir, 'RecordingPi2.wav');
-
-% Read in the audio files
-[audio1, Fs] = audioread(audio_file1);
-[audio2, Fs] = audioread(audio_file2);
-
-
-
+% Read in the audio files 
+[audio1, Fs] = audioread('RecordingPi1.wav');
+[audio2, Fs] = audioread('RecordingPi2.wav');
 
 % Extract the channels
 signal2 = audio1(:, 1);  % Left channel of first Pi,M2
@@ -27,11 +21,10 @@ signal4 = audio1(:, 2);  % Right channel of first Pi,M4
 signal1 = audio2(:, 1);  % Left channel of second Pi,M1
 signal3 = audio2(:, 2);  % Right channel of second Pi,M3
 
-
-%% Noise Reduction and Signal Preprocessing
+% Noise Reduction and Signal Preprocessing
 % Define the frequency band of interest
-lowFreq = 1490;  % Lower bound of frequency band in Hz
-highFreq = 1510; % Upper bound of frequency band in Hz
+lowFreq = 1400;  % Lower bound of frequency band in Hz
+highFreq = 1600; % Upper bound of frequency band in Hz
 
 % Design a band-pass filter
 [b, a] = butter(2, [lowFreq highFreq]/(Fs/2));
@@ -42,14 +35,8 @@ signal2 = filter(b, a, signal2);
 signal3 = filter(b, a, signal3);
 signal4 = filter(b, a, signal4);
 
-% Get the maximum length among all signals
-maxLength = max([length(signal1), length(signal2), length(signal3), length(signal4)]);
 
-% Zero-pad all signals to the maximum length
-signal1 = [signal1; zeros(maxLength - length(signal1), 1)];
-signal2 = [signal2; zeros(maxLength - length(signal2), 1)];
-signal3 = [signal3; zeros(maxLength - length(signal3), 1)];
-signal4 = [signal4; zeros(maxLength - length(signal4), 1)];
+
 
 % Compute time delays using GCC-PHAT
 [tau12, ~] = gccphat(signal1, signal2, Fs);
@@ -67,6 +54,7 @@ delta_t23 = tau23 * c;
 delta_t24 = tau24 * c;
 delta_t34 = tau34 * c;
 
+
 % Nonlinear Least Squares Estimation
 fun = @(p) [
     (sqrt(p(1)^2 + p(2)^2) - sqrt((p(1) - a_width)^2 + p(2)^2)) - delta_t12;
@@ -77,36 +65,23 @@ fun = @(p) [
     (sqrt(p(1)^2 + (p(2) - a_height)^2) - sqrt((p(1) - a_width)^2 + (p(2) - a_height)^2)) - delta_t34;
 ];
 
-options = optimset('Display', 'off');
+options = optimset('Display', 'off');  % Turn off display for lsqnonlin
+estimated_position = lsqnonlin(fun, [a_width/2, a_height/2], [0, 0], [a_width, a_height], options);  % initial guess: center of the A1 grid
 
-% Simple centroid-based initial guess
-avgX = mean([M1(1), M2(1), M3(1), M4(1)]);
-avgY = mean([M1(2), M2(2), M3(2), M4(2)]);
+% Display the estimated position
+disp(['Estimated Position (x,y): ', num2str(estimated_position)]);
+disp(['Actual Position (x,y): ', num2str(source_position)]);
+disp(['Error (mm): ', num2str(sqrt(sum((estimated_position - source_position).^2)))]);
 
-try
-    % Run the nonlinear least squares estimation
-    estimated_position = lsqnonlin(fun, [avgX, avgY], [0, 0], [a_width, a_height], options);
-catch ME
-    % Display the error message if lsqnonlin fails
-    disp('Error in optimization:');
-    disp(ME.message);
-    return;
-end
-
-% Validate the estimated position
-if estimated_position(1) < 0 || estimated_position(1) > a_width || ...
-   estimated_position(2) < 0 || estimated_position(2) > a_height
-    disp('Estimated position is outside the defined grid.');
-    return;
-end
-
-% Error Calculation
-%error_distance = sqrt((estimated_position(1) - source_position(1))^2 + (estimated_position(2) - source_position(2))^2);
-
-% After calculating the estimated_position
-
-% Full path to the CSV file
-filePath = 'estimated_position.csv';
-
-writematrix(estimated_position,filePath);
-
+% Plot the estimated position
+figure;
+plot(source_position(1), source_position(2), 'bo', 'MarkerSize', 10, 'DisplayName', 'Source Position');
+hold on;
+plot(estimated_position(1), estimated_position(2), 'rx', 'MarkerSize', 10, 'DisplayName', 'Estimated Position');
+legend('Location', 'best');
+title('Source vs. Estimated Position');
+xlabel('x (mm)');
+ylabel('y (mm)');
+axis([0 a_width 0 a_height]);
+grid on;
+hold off;

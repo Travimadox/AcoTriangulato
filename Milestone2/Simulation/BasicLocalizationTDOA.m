@@ -5,7 +5,7 @@ M1 = [0, 0];
 M2 = [a_width, 0];
 M3 = [0, a_height];
 M4 = [a_width, a_height];
-c = 343; % Speed of sound in m/s
+c = 343000; % Speed of sound in m/s
 
 % Generate synthetic source signal
 Fs = 48000; % Sampling frequency in Hz
@@ -38,7 +38,7 @@ signal3 = [zeros(1, round(delay3*Fs)), source_signal, zeros(1, sig_length - leng
 signal4 = [zeros(1, round(delay4*Fs)), source_signal, zeros(1, sig_length - length(source_signal) - round(delay4*Fs))];
 
 % Desired Signal-to-Noise Ratio in dB
-snr_dB = 20;
+snr_dB = 60;
 
 % Add noise to each microphone signal using the awgn function
 signal1 = awgn(signal1, snr_dB, 'measured');

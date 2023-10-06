@@ -6,7 +6,7 @@ M1 = [0, 0];
 M2 = [a_width, 0];
 M3 = [0, a_height];
 M4 = [a_width, a_height];
-c = 343; % Speed of sound in m/s
+c = 343000; % Speed of sound in m/s
 Fs = 48000; % Sampling frequency in Hz
 t = 0:1/Fs:5; % Time vector, for a signal of 0.1s
 
