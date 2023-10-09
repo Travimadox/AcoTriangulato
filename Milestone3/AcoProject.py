@@ -35,7 +35,7 @@ def transfer_files(host, user, file_path, dest_dir):
     
 def matlab_processing(audio_dir):
     eng = matlab.engine.start_matlab()
-    script_path = os.path.join(os.getcwd(), 'Acotriangulator.m')  # Get the path to the MATLAB script
+    script_path = os.path.join(os.getcwd(), 'Acotriangulator_t.m')  # Get the path to the MATLAB script
     eng.workspace['audio_dir'] = audio_dir  # Pass the directory path to MATLAB
     eng.eval(f"run('{script_path}')", nargout=0)  # Execute the MATLAB script
     eng.quit()

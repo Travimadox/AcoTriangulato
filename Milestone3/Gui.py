@@ -15,7 +15,7 @@ def plot():
     
     # Set axis limits
     ax.set_xlim(0, 8)
-    ax.set_ylim(0, 8)
+    ax.set_ylim(0, 5)
     
     # Add x and y axis lines
     ax.axhline(0, color='black', linewidth=1)
@@ -26,11 +26,14 @@ def plot():
         ax.axvline(i, color='#A9A9A9', linewidth=1)
     
     # Add a dot to the middle of the plot
-    middle_x = 4.5  # Middle x-coordinate
-    middle_y = 4  # Middle y-coordinate
+    # Read data from CSV file
+    middle_x, middle_y = np.loadtxt('estimated_position.csv', delimiter=',', unpack=True)
+
+    middle_x = middle_x/100  # Middle x-coordinate
+    middle_y = middle_y/100  # Middle y-coordinate
     ax.plot(middle_x, middle_y, 'x', markersize=10)
     
-    ax.set_title("Acoustic Location Grid")
+    ax.set_title("EEE3097S TDOA PROJECT Grid")
     ax.set_xlabel('X-Axis')
     ax.set_ylabel('Y-Axis')
     

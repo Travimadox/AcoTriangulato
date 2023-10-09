@@ -60,6 +60,14 @@ sig = [signal1', signal2', signal3', signal4'];
 [tau24, ~, ~] = gccphat(sig(:, 2), sig(:, 4), Fs);
 [tau34, ~, ~] = gccphat(sig(:, 3), sig(:, 4), Fs);
 
+% Print out the time delays
+fprintf('Time delay tau12: %.9f seconds\n', tau12);
+fprintf('Time delay tau13: %.9f seconds\n', tau13);
+fprintf('Time delay tau14: %.9f seconds\n', tau14);
+fprintf('Time delay tau23: %.9f seconds\n', tau23);
+fprintf('Time delay tau24: %.9f seconds\n', tau24);
+fprintf('Time delay tau34: %.9f seconds\n', tau34);
+
 % Convert tau (time delay) into spatial delay (distance)
 delta_t12 = tau12 * c;
 delta_t13 = tau13 * c;
