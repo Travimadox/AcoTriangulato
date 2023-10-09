@@ -235,8 +235,8 @@ function [Estimated_positionN1, Estimated_positionN2, Estimated_positionN3, Esti
 end
 
 
-function [I, Q, scale] = loadfersHDF5(name)
-  hinfo = hdf5info(name);
+function [I, Q, scale] = loadfersHDF5(name) %#ok<*DEFNU>
+  hinfo = hdf5info(name); %#ok<HDFI>
   count = round(size(hinfo.GroupHierarchy.Datasets,2)/2);
   numelements = hinfo.GroupHierarchy.Datasets(1).Dims;
 

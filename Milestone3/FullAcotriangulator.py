@@ -13,7 +13,7 @@ def pi1():
 
     #os.system("ssh raspberrypi1@192.168.137.39 echo $(date +%s%N) > timestamp1.csv")
 
-    os.system("ssh raspberrypi1@192.168.137.39 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 10 -t wav -V stereo -v RecordingPi1.wav")
+    os.system("ssh raspberrypi1@192.168.137.39 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 20 -t wav -V stereo -v RecordingPi1.wav")
    
 
 def pi2():
@@ -21,7 +21,7 @@ def pi2():
 
    # os.system("ssh raspberrypi1@192.168.137.190 echo $(date +%s%N) > timestamp2.csv")
 
-    os.system("ssh raspberrypi2@192.168.137.190 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 10 -t wav -V stereo -v RecordingPi2.wav")
+    os.system("ssh raspberrypi2@192.168.137.190 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 20 -t wav -V stereo -v RecordingPi2.wav")
    
 def transfer_files(host, user, file_path, dest_dir):
     client = paramiko.SSHClient()
@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
 
 
-    sleep(15)                                         # Wait until recordings finish
+    sleep(25)                                         # Wait until recordings finish
 
     # Collect recordings and NTP status from Raspberry Pis
     transfer_files('192.168.137.39', 'raspberrypi1', 'RecordingPi1.wav', file_name)
@@ -76,8 +76,11 @@ if __name__ == '__main__':
     
 
     # Call MATLAB processing function
-    audio_dir = 'C:\\Users\\User\\OneDrive - University of Cape Town\\Desktop\\EEE3097S\\AcoTriangulator\\Milestone3\\Audio'
-    matlab_processing(file_name)
+    #audio_dir = 'C:\\Users\\User\\OneDrive - University of Cape Town\\Desktop\\EEE3097S\\AcoTriangulator\\Milestone3\\Audio'
+    #matlab_processing(file_name)
+
+    print("Done")
+
 
     exit
 exit
