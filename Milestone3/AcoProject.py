@@ -13,7 +13,7 @@ def pi1():
 
     #os.system("ssh raspberrypi1@192.168.137.39 echo $(date +%s%N) > timestamp1.csv")
 
-    os.system("ssh raspberrypi1@192.168.137.39 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 10 -t wav -V stereo -v RecordingPi1.wav")
+    os.system("ssh raspberrypi1@192.168.137.47 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 10 -t wav -V stereo -v RecordingPi1.wav")
    
 
 def pi2():
@@ -21,7 +21,7 @@ def pi2():
 
    # os.system("ssh raspberrypi1@192.168.137.190 echo $(date +%s%N) > timestamp2.csv")
 
-    os.system("ssh raspberrypi2@192.168.137.190 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 10 -t wav -V stereo -v RecordingPi2.wav")
+    os.system("ssh raspberrypi2@192.168.137.105 sudo nice -n -20 arecord -D plughw:0 -c2 -r 48000 -f S32_LE -d 10 -t wav -V stereo -v RecordingPi2.wav")
    
 def transfer_files(host, user, file_path, dest_dir):
     client = paramiko.SSHClient()
@@ -68,8 +68,8 @@ if __name__ == '__main__':
     sleep(15)                                         # Wait until recordings finish
 
     # Collect recordings and NTP status from Raspberry Pis
-    transfer_files('192.168.137.39', 'raspberrypi1', 'RecordingPi1.wav', file_name)
-    transfer_files('192.168.137.190', 'raspberrypi2', 'RecordingPi2.wav', file_name)
+    transfer_files('192.168.137.47', 'raspberrypi1', 'RecordingPi1.wav', file_name)
+    transfer_files('192.168.137.105', 'raspberrypi2', 'RecordingPi2.wav', file_name)
 
     #transfer_files('192.168.137.39', 'raspberrypi1', 'timestamp1.csv', file_name)
     #transfer_files('192.168.137.190', 'raspberrypi2', 'timestamp2.csv', file_name)

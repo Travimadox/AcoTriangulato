@@ -1,9 +1,8 @@
 %% Define General Variables
-clear;
-clc;
+
 
 save_fig = false;
-resolution = 100;               % resolution x points/meter
+resolution = 1000;               % resolution x points/meter
 c = 343;                      % Speed of Sound
 
 %% Define Grid, MIcrophone, Calibration and Sound Positions in the form [X Y]
@@ -29,10 +28,9 @@ audio_file2 = fullfile(audio_dir, 'RecordingPi2.wav');
 
 
 y2 = audio1(:, 1);  % Left channel of first Pi,M2
-y4 = audio1(:, 2);  % Right channel of first Pi,M4
-y1 = audio2(:, 1);  % Left channel of second Pi,M1
-y3 = audio2(:, 2);  % Right channel of second Pi,M3
-
+y1 = audio1(:, 2);  % Right channel of first Pi,M1
+y3 = audio2(:, 1);  % Left channel of second Pi,M3
+y4 = audio2(:, 2);  % Right channel of second Pi,M3
 
 [reference_sig,Fs_chirp] = audioread("chirp_0_15000_5s.wav");
 

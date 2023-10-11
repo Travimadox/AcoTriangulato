@@ -30,8 +30,8 @@ signal3 = audio2(:, 2);  % Right channel of second Pi,M3
 
 %% Noise Reduction and Signal Preprocessing
 % Define the frequency band of interest
-lowFreq = 1490;  % Lower bound of frequency band in Hz
-highFreq = 1510; % Upper bound of frequency band in Hz
+lowFreq = 0;  % Lower bound of frequency band in Hz
+highFreq = 20000; % Upper bound of frequency band in Hz
 
 % Design a band-pass filter
 [b, a] = butter(2, [lowFreq highFreq]/(Fs/2));
